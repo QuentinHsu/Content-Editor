@@ -12,7 +12,7 @@
 export default {
   data() {
     return {
-      content: `<span contenteditable="false" style="color: red; cursor:pointer;" onclick="console.log('被点击')" data-linkurl="www.baiduccc.com" data-linkname="短链接1">短链接1</span>纯文本内容`,
+      content: `<span contenteditable="false" style="color: red; cursor:pointer;" onclick="console.log('被点击')" data-linkurl="www.baiduccc.com" data-linkname="短链接1">短链接1</span>纯文本内容<span contenteditable="false" style="color: red; cursor:pointer;" onclick="console.log('被点击')" data-linkurl="www.baiduccc.com" data-linkname="短链接1">短链接1</span>纯文本内容`,
     }
   },
   methods: {
@@ -25,6 +25,7 @@ export default {
       let tagPathLinkName = $event.target.dataset.linkname
       console.log('[ tagPath ]', tagPathLinkUrl)
       console.log('[ tagPathLinkName ]', tagPathLinkName)
+      console.log("getSelection()", getSelection())
     },
   },
   watch: {
