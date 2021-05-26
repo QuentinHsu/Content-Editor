@@ -19,15 +19,19 @@ export default {
       node: null,
       offset: 0,
       linkIndex: 1, // 链接索引
+      currentEvent: null,
     }
   },
   methods: {
     handleOnClick($event) {
+      this.currentEvent = $event
       // 记录因点击事件而改变的光标位置
       const sel = getSelection()
       this.node = sel.anchorNode
       this.offset = sel.anchorOffset
-      console.log('[ $event ]', $event)
+      console.log('[ Click this.node ]', this.node)
+      console.log('[ Click this.offset ]', this.offset)
+      console.log('[ onClick $event ]', $event)
       // 当点击的是链接 span
       if ($event.target.dataset.linkName) {
       }
@@ -36,9 +40,11 @@ export default {
       const sel = getSelection()
       this.node = sel.anchorNode
       this.offset = sel.anchorOffset
-      console.log('[ $event.target.innerHTML ]', $event.target.innerHTML)
+      // console.log('[ $event.target.innerHTML ]', $event.target.innerHTML)
     },
-    handleOnFocus() {
+    handleOnFocus($event) {
+      console.log('[ focus $event ]', $event)
+      this.currentEvent = $event
       const sel = getSelection()
       this.node = sel.anchorNode
       this.offset = sel.anchorOffset
@@ -47,6 +53,11 @@ export default {
       if (!this.node) {
         return
       }
+      console.log('[ this.node ]', this.node)
+      console.log('[ this.currentEvent.target.className ]', this.currentEvent.target.className)
+      // if (this.currentEvent.target.childNodes.length > 0 && this.currentEvent.type === 'click') {
+      //   return
+      // }
       const span = document.createElement('span')
       span.innerText = '动态链接' + this.linkIndex
       // 设置 data 属性
@@ -59,7 +70,8 @@ export default {
       // span.onclick = ($e) => {
 
       // }
-      console.log('[ span ]', span)
+      //  空的 span
+      const emptySpan = document.createElement('span')
       if (this.node.nodeName === '#text') {
         const p = this.node.parentElement
         p.removeChild(this.node)
@@ -77,6 +89,8 @@ export default {
       } else {
         if (this.$refs['contentEditor'] === this.node) {
           this.node.appendChild(span)
+          // 解决连续链接模块之间的光标偏移问题
+          this.node.appendChild(emptySpan)
         } else {
           this.node.parentElement.appendChild(span)
         }
@@ -84,9 +98,6 @@ export default {
     },
   },
   mounted() {
-    this.$refs['content-editor']
-    console.log("[ this.$refs['contentEditor'] ]", this.$refs['contentEditor'])
-    console.log('[ this.$refs ]', this.$refs)
     this.$refs['contentEditor'].focus()
   },
 }
@@ -99,9 +110,17 @@ export default {
     min-height: 100px;
     padding: 10px;
     border: 1px solid #e1e4e8;
+    line-height: 29px;
     .link-name {
-      background: rgb(243, 86, 86);
-      margin: 0 4px;
+      height: 23px;
+      margin: 0 5px;
+      min-width: 90px;
+      text-align: center;
+      background: #eceff5;
+      border-radius: 2px;
+      font-size: 14px;
+      color: #6b788e;
+      padding: 3px 5px;
     }
   }
   .add-new-dom {
