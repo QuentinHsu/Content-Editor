@@ -41,6 +41,8 @@ export default {
       this.node = sel.anchorNode
       this.offset = sel.anchorOffset
       // console.log('[ $event.target.innerHTML ]', $event.target.innerHTML)
+      console.log('[ onInput this.node ]', this.node)
+      console.log('[ onInput this.offset ]', this.offset)
     },
     handleOnFocus($event) {
       console.log('[ focus $event ]', $event)
@@ -55,9 +57,9 @@ export default {
       }
       console.log('[ this.node ]', this.node)
       console.log('[ this.currentEvent.target.className ]', this.currentEvent.target.className)
-      // if (this.currentEvent.target.childNodes.length > 0 && this.currentEvent.type === 'click') {
-      //   return
-      // }
+      if (this.currentEvent.target.className === 'link-name') {
+        return
+      }
       const span = document.createElement('span')
       span.innerText = '动态链接' + this.linkIndex
       // 设置 data 属性
@@ -74,6 +76,7 @@ export default {
       const emptySpan = document.createElement('span')
       if (this.node.nodeName === '#text') {
         const p = this.node.parentElement
+        console.log("[ add p ]", p)
         p.removeChild(this.node)
         if (this.node.nodeValue.slice(0, this.offset).length > 0) {
           const n1 = document.createElement('span')
@@ -93,6 +96,7 @@ export default {
           this.node.appendChild(emptySpan)
         } else {
           this.node.parentElement.appendChild(span)
+          this.node.parentElement.appendChild(emptySpan)
         }
       }
     },
