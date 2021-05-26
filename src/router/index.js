@@ -5,16 +5,16 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
-    name: "index",
-    component: () => import("@/views/contentEditor/index"),
+    path: '/',
+    name: 'index',
+    component: () => import('@/views/contentEditorDOM/index.vue'),
   },
-];
+]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router
