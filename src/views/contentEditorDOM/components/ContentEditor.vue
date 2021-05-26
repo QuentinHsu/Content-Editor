@@ -76,7 +76,7 @@ export default {
       const emptySpan = document.createElement('span')
       if (this.node.nodeName === '#text') {
         const p = this.node.parentElement
-        console.log("[ add p ]", p)
+        console.log('[ add p ]', this.node.parentElement)
         p.removeChild(this.node)
         if (this.node.nodeValue.slice(0, this.offset).length > 0) {
           const n1 = document.createElement('span')
@@ -88,6 +88,8 @@ export default {
           const n2 = document.createElement('span')
           n2.innerText = this.node.nodeValue.slice(this.offset)
           p.appendChild(n2)
+        } else {
+          p.appendChild(emptySpan)
         }
       } else {
         if (this.$refs['contentEditor'] === this.node) {
@@ -99,6 +101,8 @@ export default {
           this.node.parentElement.appendChild(emptySpan)
         }
       }
+      const sel = getSelection()
+      sel.collapse(this.$refs['contentEditor'], this.$refs['contentEditor'].childNodes.length - 1)
     },
   },
   mounted() {
