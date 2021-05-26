@@ -75,7 +75,11 @@ export default {
           p.appendChild(n2)
         }
       } else {
-        this.node.parentElement.appendChild(span)
+        if (this.$refs['contentEditor'] === this.node) {
+          this.node.appendChild(span)
+        } else {
+          this.node.parentElement.appendChild(span)
+        }
       }
     },
   },
@@ -84,7 +88,7 @@ export default {
     console.log("[ this.$refs['contentEditor'] ]", this.$refs['contentEditor'])
     console.log('[ this.$refs ]', this.$refs)
     this.$refs['contentEditor'].focus()
-  }
+  },
 }
 </script>
 
