@@ -3,13 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'index',
-    component: () => import('@/views/contentEditorDOM/index.vue'),
-  },
-]
+const routes = []
 
 const router = new VueRouter({
   mode: 'history',
